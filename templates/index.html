@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>头号玩家 · 夏令营组别查询系统</title>
+    <title>头号玩家 · 夏令营队员查询系统</title>
     <style>
         body {
             font-family: "Helvetica Neue", sans-serif;
@@ -74,7 +74,7 @@
 <body>
     <div class="container">
         <img src="{{ url_for('static', filename='banner.jpg') }}" alt="banner">
-        <h2 style="text-align:center;">头号玩家 · 夏令营组别查询系统</h2>
+        <h2 style="text-align:center;">头号玩家 · 夏令营队员查询系统</h2>
         <form method="post">
             <input type="text" name="id_number" placeholder="请输入您的证件号" required>
             <button type="submit">查询</button>
@@ -82,11 +82,11 @@
 
         {% if result %}
         <div class="result">
-            <h3>👤 你好，{{ result.user_name }}！</h3>
-            <p>你所在的组别是：<strong>{{ result.group }}</strong></p>
-            <p>🏠 你的房间号是：<strong>{{ result.room_number }}</strong></p>
+            <h3>👤 特种兵你好，{{ result.user_name }}！</h3>
+            <p>欢迎你加入我们！你所在的队是：<strong>{{ result.group }}</strong></p>
+            <p>🏠 这期间你的房间号是：<strong>{{ result.room_number }}</strong></p>
 
-            <h4>👨‍🏫 本组辅导：</h4>
+            <h4>👨‍🏫 我是你的队长，有事请联系我：</h4>
             {% for mentor in result.mentors %}
             <div class="card">
                 <strong>{{ mentor["姓名（中文）"] }}</strong><br>
@@ -94,7 +94,7 @@
             </div>
             {% endfor %}
 
-            <h4>👥 本组组员：</h4>
+            <h4>👥 以下是我们的队员：</h4>
             {% for member in result.members %}
             <div class="card">
                 {{ member["姓名（中文）"] }}（{{ member["所属堂点"] }}）
