@@ -1,7 +1,7 @@
-
 from flask import Flask, render_template, request
 import pandas as pd
 import re
+import os
 
 app = Flask(__name__)
 
@@ -33,7 +33,10 @@ def index():
             mentors = same_group[same_group["身份"] == "辅导"][["姓名（中文）", "联系电话"]].to_dict("records")
 
             # 获取组员信息（排除自己）
-            members = same_group[(same_group["身份"] == "组员") & (same_group["规范证件号"] != id_number_cleaned)][["姓名（中文）", "所属堂点"]].to_dict("records")
+            members = same_group[
+                (same_group["身份"] == "组员") & 
+                (same_group["规范证件号"] != id_number_cleaned)
+            ][["姓名（中文）", "所属堂点"]].to_dict("records")
 
             result = {
                 "user_name": user_name,
@@ -44,15 +47,6 @@ def index():
             }
 
     return render_template("index.html", result=result)
-
-
-
-import os
-
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host='0.0.0.0', port=port)
-
-import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
