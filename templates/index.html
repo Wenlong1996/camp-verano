@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>头号玩家 · 夏令营组别查询系统</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", sans-serif;
+            background: #f4f6f9;
+            text-align: center;
+            padding: 40px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 60%;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #2d89ef;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            text-align: left;
+            margin-top: 30px;
+        }
+        .card {
+            background: #f1f3f6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='banner.jpg') }}" alt="banner">
+        <h2>头号玩家 · 夏令营组别查询系统</h2>
+        <form method="post">
+            <input type="text" name="id_number" placeholder="请输入您的证件号" required>
+            <button type="submit">查询</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h3>👤 你好，{{ result.user_name }}！</h3>
+            <p>你所在的组别是：<strong>{{ result.group }}</strong></p>
+            <p>🏠 你的房间号是：<strong>{{ result.room_number }}</strong></p>
+
+            <h4>👨‍🏫 本组辅导：</h4>
+            {% for mentor in result.mentors %}
+            <div class="card">
+                {{ mentor["姓名（中文）"] }} - {{ mentor["联系电话"] }}
+            </div>
+            {% endfor %}
+
+            <h4>👥 本组组员：</h4>
+            {% for member in result.members %}
+            <div class="card">
+                {{ member["姓名（中文）"] }}（{{ member["所属堂点"] }}）
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
