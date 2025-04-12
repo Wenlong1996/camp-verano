@@ -23,11 +23,11 @@ def index():
         if not person.empty:
             user_row = person.iloc[0]
             user_name = user_row["姓名（中文）"]
-            group = user_row["组别"]
+            group = user_row["队别"]
             room_number = user_row["房间号"]
 
             # 获取本组所有人
-            same_group = df[df["组别"] == group]
+            same_group = df[df["队别"] == group]
 
             # 获取辅导信息
             mentors = same_group[same_group["身份"] == "辅导"][["姓名（中文）", "联系电话"]].to_dict("records")
