@@ -30,11 +30,11 @@ def index():
             same_group = df[df["队别"] == group]
 
             # 获取辅导信息
-            mentors = same_group[same_group["身份"] == "辅导"][["姓名（中文）", "联系电话"]].to_dict("records")
+            mentors = same_group[same_group["身份"] == "队长"][["姓名（中文）", "联系电话"]].to_dict("records")
 
             # 获取组员信息（排除自己）
             members = same_group[
-                (same_group["身份"] == "组员") & 
+                (same_group["身份"] == "队员") & 
                 (same_group["规范证件号"] != id_number_cleaned)
             ][["姓名（中文）", "所属堂点"]].to_dict("records")
 
